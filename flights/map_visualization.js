@@ -26,7 +26,7 @@
 
 
     function ready(error, countriesData, airportsData, flightData) {
-      console.log(flightData)
+      // console.log(flightData)
       var countriesParsed = topojson.feature(countriesData, countriesData.objects.countries).features;
 
       svg.selectAll(".country")
@@ -116,7 +116,7 @@
 
       time = setInterval(function(){
 
-        console.log(timer)
+        // console.log(timer)
         for (var i = 0; i < flights.length-1; i++) {
           if (parseInt(flights[i].DEP_TIME) === timer) {
             // let route = svg
