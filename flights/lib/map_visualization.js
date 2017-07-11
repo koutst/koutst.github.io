@@ -1,6 +1,6 @@
 
 (function(){
-  var margin = { top: 400, left: 100, right: 50, down: 50},
+  var margin = { top: 400, left: 100, right: 0, down: 0},
     height = 1000 - margin.top - margin.down,
     width = 2000 - margin.left - margin.right;
 
@@ -9,7 +9,7 @@
     .attr("height", height + margin.top + margin.down)
     .attr("width", width + margin.left + margin.right)
     .append("g")
-    .attr("transform", "translate("+ margin.left + "," + margin.top +")");
+    .attr("transform", "translate("+ 0 + "," + margin.top +")");
 
     d3.queue()
       .defer(d3.json, "countries.topojson")
@@ -138,7 +138,9 @@
           .attr("class", "clock")
           .text("Time (hh/mm): " +hours + ":" + minutes )
         }
-
+        svg.selectAll(".clock")
+        .attr("height", 0)
+        .attr("width", 10)
         for (var i = 0; i < flights.length-1; i++) {
 
           if (parseInt(flights[i].DEP_TIME) === timer) {
@@ -168,7 +170,7 @@
           timer += 100 - timer%100
         }
         if (timer >= 2400) {
-          clearInterval(time);
+          timer = 0;
         }
       }
 
