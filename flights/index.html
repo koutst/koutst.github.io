@@ -18,7 +18,7 @@
         background: -webkit-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(to right, #7d7e7d 0%,#0e0e0e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6-9 */
-        width:auto;
+        width:100vw;
       }
       body{
         display: flex;
@@ -33,7 +33,7 @@
         display: flex;
         justify-content: flex-start;
         color: white;
-        order: -2;
+        order: -5;
       }
       div{
         display: flex;
@@ -71,12 +71,14 @@
         justify-content: left;
         color: white;
         font-family: 'Robo Slab';
+        order: -1;
+        margin-left: 20px;
       }
       .clock{
         fill: white;
       }
       .pause{
-        order: -1;
+        order: -2;
         background: white;
         width: 60px;
         height: 25px;
@@ -84,7 +86,7 @@
         border-radius: 5px;
       }
       .play{
-        order: -1;
+        order: -2;
         background: white;
         border-radius: 5px;
         width: 60px;

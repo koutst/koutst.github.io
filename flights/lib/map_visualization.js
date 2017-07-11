@@ -1,8 +1,8 @@
 
 (function(){
-  var margin = { top: 550, left: 100, right: 50, down: 50},
+  var margin = { top: 400, left: 100, right: 50, down: 50},
     height = 1000 - margin.top - margin.down,
-    width = 1500 - margin.left - margin.right;
+    width = 2000 - margin.left - margin.right;
 
   var svg = d3.select("#map")
     .append("svg")
@@ -58,6 +58,7 @@
           .text(
             "GDP (in millions): " + d.properties.GDP_MD_EST
           )
+          debugger
         })
         .on("mouseout", function(d){
           d3.selectAll("text.countrydetails").remove()
