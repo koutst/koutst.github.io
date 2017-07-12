@@ -24,6 +24,8 @@
     var path = d3.geoPath()
       .projection(projection);
 
+    let intSpeed = 100
+
 
     function ready(error, countriesData, airportsData, flightData) {
       // console.log(flightData)
@@ -58,7 +60,6 @@
           .text(
             "GDP (in millions): " + d.properties.GDP_MD_EST
           )
-          debugger
         })
         .on("mouseout", function(d){
           d3.selectAll("text.countrydetails").remove()
@@ -174,8 +175,9 @@
         }
       }
 
+
       let time = setInterval(
-        interval, 1000)
+        interval, intSpeed)
 
       svg.selectAll(".airport")
       .data(airports)
@@ -225,7 +227,7 @@
       .on("click", function(){
         //
           clearInterval(time)
-      })
+      });
 
       d3.select(svg.node().parentNode.parentNode.parentNode)
       .append("input")
@@ -233,9 +235,43 @@
       .attr("class","play")
       .attr("value","Play")
       .on("click", function(){
-        time = setInterval(interval, 1000)
-      })
+        time = setInterval(interval, intSpeed)
+      });
 
+      let speed = d3.select(svg.node().parentNode.parentNode.parentNode)
+      .append("text")
+      .attr("class", "speed")
+      .text(
+        "Speed: 1 hour = " + (intSpeed/1000)*60 + " seconds"
+      )
+
+      d3.select(svg.node().parentNode.parentNode.parentNode)
+      .append("input")
+      .attr("type","button")
+      .attr("class","play")
+      .attr("value","X2")
+      .on("click", function(){
+        intSpeed = intSpeed/2
+        d3.select(".speed").text(
+          "Speed: 1 hour = " + (intSpeed/1000)*60 + " seconds"
+        )
+        clearInterval(time)
+        time = setInterval(interval, intSpeed)
+      });
+
+      d3.select(svg.node().parentNode.parentNode.parentNode)
+      .append("input")
+      .attr("type","button")
+      .attr("class","play")
+      .attr("value","/2")
+      .on("click", function(){
+        intSpeed = intSpeed*2
+        d3.select(".speed").text(
+          "Speed: 1 hour = " + (intSpeed/1000)*60 + " seconds"
+        )
+        clearInterval(time)
+        time = setInterval(interval, intSpeed)
+      });
 
     }
 })();
