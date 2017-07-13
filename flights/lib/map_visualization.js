@@ -5,32 +5,35 @@
     width = 2000 - margin.left - margin.right;
 
   var zoom = d3.zoom()
-    .scaleExtent([1, 8])
+    .scaleExtent([0.5, 8])
     .on("zoom", zoomed);
 
   let svg = d3.select("#map")
               .append("svg")
               .attr("height", height + margin.top + margin.down)
               .attr("width", width + margin.left + margin.right)
-              .style("fill", "blue")
+
+
 
   let gMap = svg.append("g")
                 .attr("class", "g-map")
                 .attr("transform", "translate("+ margin.left + "," + margin.top +")")
 
+  let rectBackground = gMap.append("rect")
+                .attr("class", "rect-background")
+                .attr("height", 1250)
+                .attr("width", width + margin.left + margin.right)
+                .attr("transform", "translate("+ margin.left + "," + -400 +")")
 
-
-  // debugger
   let rectZoom = svg.append("rect")
-                    .attr("class", "rect-zoom")
-                    .attr("height", height + margin.top + margin.down)
-                    .attr("width", width + margin.left + margin.right)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .call(zoom)
+                .attr("class", "rect-zoom")
+                .attr("height", height + margin.top + margin.down)
+                .attr("width", width + margin.left + margin.right)
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .call(zoom)
 
     function zoomed() {
-      // debugger
       gMap.attr("transform", d3.event.transform );
     }
 
@@ -93,10 +96,10 @@
 
 
 
-      var airports = topojson.feature(airportsData, airportsData.objects.airports).features;
+      let airports = topojson.feature(airportsData, airportsData.objects.airports).features;
 
 
-      var airportsNameCoord = {};
+      let airportsNameCoord = {};
 
       for (var i = 0; i < airports.length; i++) {
         let iata = airports[i].properties.iata_code;
@@ -118,10 +121,10 @@
       }
 
       function transition(plane, route) {
-        plane
-        .transition()
-        .duration(1000)
-        .attrTween("transform", translateAttr(route.node()))
+        let l = route.node().getTotalLength();
+        plane.transition()
+              .duration(1000)
+              .attrTween("transform", translateAttr(route.node()))
         .attr("d", path)
         .remove()
         ;
@@ -132,7 +135,7 @@
         return function(d, i, a) {
           return function(t) {
             var p = path.getPointAtLength(t * l);
-            return "translate(" + p.x + "," + p.y + ")";
+            return "translate(" + (p.x) + "," + (p.y) + ")";
           };
         };
       }
@@ -165,18 +168,22 @@
         gMap.selectAll(".clock")
         .attr("height", 0)
         .attr("width", 10)
-        for (var i = 0; i < flights.length-1; i++) {
 
+        for (var i = 0; i < flights.length-1; i++) {
+          // let currFlight = {coordinates: flights[i]["coordinates"]}
+          let currFlight = flights[i]
+          // debugger
+          // debugger
           if (parseInt(flights[i].DEP_TIME) === timer) {
             transition(
-              gMap.data([flights[i]])
-                  .append("path")
+              gMap.datum(currFlight)
+                  .append("circle")
                   .attr("class", "plane")
                   .attr("fill", "red")
                   .attr("d", path)
                   .attr("stroke-width", 0.5)
               ,
-              gMap.data([{type: "LineString", coordinates: [flights[i].coordinates, flights[i].DESTCOORD]}])
+              gMap.datum({type: "LineString", coordinates: [flights[i].coordinates, flights[i].DESTCOORD]})
                   .append("path")
                   .attr("class", "route")
                   .attr("d", path)
@@ -233,6 +240,7 @@
         )
         //
       })
+      // .on("click", )
       .on("mouseout", function(d){
         d3.selectAll("text.countrydetails").remove()
 
@@ -243,33 +251,33 @@
       });
 
 
-      d3.select(gMap.node().parentNode.parentNode.parentNode)
+      d3.select(".map")
       .append("input")
       .attr("type","button")
       .attr("class","pause")
       .attr("value","Pause")
       .on("click", function(){
-        //
           clearInterval(time)
       });
 
-      d3.select(gMap.node().parentNode.parentNode.parentNode)
+      d3.select(".map")
       .append("input")
       .attr("type","button")
       .attr("class","play")
       .attr("value","Play")
       .on("click", function(){
+        clearInterval(time)
         time = setInterval(interval, intSpeed)
       });
 
-      let speed = d3.select(gMap.node().parentNode.parentNode.parentNode)
+      let speed = d3.select(".map")
       .append("text")
       .attr("class", "speed")
       .text(
         "Speed: 1 hour = " + (intSpeed/1000)*60 + " seconds"
       )
 
-      d3.select(gMap.node().parentNode.parentNode.parentNode)
+      d3.select(".map")
       .append("input")
       .attr("type","button")
       .attr("class","play")
@@ -283,7 +291,7 @@
         time = setInterval(interval, intSpeed)
       });
 
-      d3.select(gMap.node().parentNode.parentNode.parentNode)
+      d3.select(".map")
       .append("input")
       .attr("type","button")
       .attr("class","play")
