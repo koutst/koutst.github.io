@@ -1,15 +1,38 @@
 
 (function(){
-  var margin = { top: 400, left: 100, right: 0, down: 0},
-    height = 1000 - margin.top - margin.down,
+  var margin = { top: 0, left: 0, right: 0, down: 0},
+    height = 750 - margin.top - margin.down,
     width = 2000 - margin.left - margin.right;
 
-  var svg = d3.select("#map")
-    .append("svg")
-    .attr("height", height + margin.top + margin.down)
-    .attr("width", width + margin.left + margin.right)
-    .append("g")
-    .attr("transform", "translate("+ 0 + "," + margin.top +")");
+  var zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed);
+
+  let svg = d3.select("#map")
+              .append("svg")
+              .attr("height", height + margin.top + margin.down)
+              .attr("width", width + margin.left + margin.right)
+              .style("fill", "blue")
+
+  let gMap = svg.append("g")
+                .attr("class", "g-map")
+                .attr("transform", "translate("+ margin.left + "," + margin.top +")")
+
+
+
+  // debugger
+  let rectZoom = svg.append("rect")
+                    .attr("class", "rect-zoom")
+                    .attr("height", height + margin.top + margin.down)
+                    .attr("width", width + margin.left + margin.right)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .call(zoom)
+
+    function zoomed() {
+      // debugger
+      gMap.attr("transform", d3.event.transform );
+    }
 
     d3.queue()
       .defer(d3.json, "countries.topojson")
@@ -31,7 +54,7 @@
       // console.log(flightData)
       var countriesParsed = topojson.feature(countriesData, countriesData.objects.countries).features;
 
-      svg.selectAll(".country")
+      gMap.selectAll(".country")
         .data(countriesParsed)
         .enter()
         .append("path")
@@ -94,75 +117,76 @@
         }
       }
 
-      function transition(rect, route) {
-        rect.attr('opacity', 1)
+      function transition(plane, route) {
+        plane
         .transition()
         .duration(1000)
         .attrTween("transform", translateAttr(route.node()))
-        .attr("d", path.pointRadius(0))
+        .attr("d", path)
         .remove()
         ;
       }
 
       function translateAttr(path) {
-        let l = path.getTotalLength();
-        return function(i) {
+        var l = path.getTotalLength();
+        return function(d, i, a) {
           return function(t) {
-            let p = path.getPointAtLength(t * l);
-            return "translate(" + (p.x) + "," + (p.y) + ")";
-          }
-        }
+            var p = path.getPointAtLength(t * l);
+            return "translate(" + p.x + "," + p.y + ")";
+          };
+        };
       }
 
       let timer = 0;
 
       const interval = function(){
         //
-        svg.selectAll(".clock").remove()
+        gMap.selectAll(".clock").remove();
         let minutes = timer%100;
         let hours = (timer-minutes)/100;
         if (hours < 10 && minutes < 10) {
-          svg.append("text")
+          gMap.append("text")
           .attr("class", "clock")
-          .text("Time (hh/mm): 0" +hours + ":0" + minutes )
+          .text("Time (hh/mm): 0" +hours + ":0" + minutes );
 
         }else if (hours < 10) {
-          svg.append("text")
+          gMap.append("text")
           .attr("class", "clock")
           .text("Time (hh/mm): 0" +hours + ":" + minutes )
         } else if (minutes < 10) {
-          svg.append("text")
+          gMap.append("text")
           .attr("class", "clock")
           .text("Time (hh/mm): " +hours + ":0" + minutes )
         } else {
-          svg.append("text")
+          gMap.append("text")
           .attr("class", "clock")
           .text("Time (hh/mm): " +hours + ":" + minutes )
         }
-        svg.selectAll(".clock")
+        gMap.selectAll(".clock")
         .attr("height", 0)
         .attr("width", 10)
         for (var i = 0; i < flights.length-1; i++) {
 
           if (parseInt(flights[i].DEP_TIME) === timer) {
-            transition(svg
-            .data([flights[i]])
-            .append("path")
-            .attr("class", "rect")
-            .attr("fill", "red")
-            .attr("d", path)
-            .attr("stroke-width", 0.5), svg
-            .data([{type: "LineString", coordinates: [flights[i].coordinates, flights[i].DESTCOORD]}])
-            .append("path")
-            .attr("class", "route")
-            .attr("d", path)
-            .attr('opacity', 0.5)
-            .attr('fill', "none")
-            .attr('stroke-width', 0.01)
-            .attr('stroke', '	#00FF00')
-            .transition()
-            .duration(1000)
-            .remove());
+            transition(
+              gMap.data([flights[i]])
+                  .append("path")
+                  .attr("class", "plane")
+                  .attr("fill", "red")
+                  .attr("d", path)
+                  .attr("stroke-width", 0.5)
+              ,
+              gMap.data([{type: "LineString", coordinates: [flights[i].coordinates, flights[i].DESTCOORD]}])
+                  .append("path")
+                  .attr("class", "route")
+                  .attr("d", path)
+                  .attr('opacity', 0.5)
+                  .attr('fill', "none")
+                  .attr('stroke-width', 0.01)
+                  .attr('stroke', '	#00FF00')
+                  .transition()
+                  .duration(1000)
+                  .remove());
           }
 
         }
@@ -179,7 +203,7 @@
       let time = setInterval(
         interval, intSpeed)
 
-      svg.selectAll(".airport")
+      gMap.selectAll(".airport")
       .data(airports)
       .enter()
       .append("path")
@@ -219,7 +243,7 @@
       });
 
 
-      d3.select(svg.node().parentNode.parentNode.parentNode)
+      d3.select(gMap.node().parentNode.parentNode.parentNode)
       .append("input")
       .attr("type","button")
       .attr("class","pause")
@@ -229,7 +253,7 @@
           clearInterval(time)
       });
 
-      d3.select(svg.node().parentNode.parentNode.parentNode)
+      d3.select(gMap.node().parentNode.parentNode.parentNode)
       .append("input")
       .attr("type","button")
       .attr("class","play")
@@ -238,14 +262,14 @@
         time = setInterval(interval, intSpeed)
       });
 
-      let speed = d3.select(svg.node().parentNode.parentNode.parentNode)
+      let speed = d3.select(gMap.node().parentNode.parentNode.parentNode)
       .append("text")
       .attr("class", "speed")
       .text(
         "Speed: 1 hour = " + (intSpeed/1000)*60 + " seconds"
       )
 
-      d3.select(svg.node().parentNode.parentNode.parentNode)
+      d3.select(gMap.node().parentNode.parentNode.parentNode)
       .append("input")
       .attr("type","button")
       .attr("class","play")
@@ -259,7 +283,7 @@
         time = setInterval(interval, intSpeed)
       });
 
-      d3.select(svg.node().parentNode.parentNode.parentNode)
+      d3.select(gMap.node().parentNode.parentNode.parentNode)
       .append("input")
       .attr("type","button")
       .attr("class","play")

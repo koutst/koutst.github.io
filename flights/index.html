@@ -11,11 +11,12 @@
         font-size: 0.85em
       }
       html{
-        background: #1e5799; /* Old browsers */
-        background: -moz-linear-gradient(left, #1e5799 0%, #2989d8 36%, #207cca 80%, #207cca 100%, #7db9e8 100%, #207cca 102%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(left, #1e5799 0%,#2989d8 36%,#207cca 80%,#207cca 100%,#7db9e8 100%,#207cca 102%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to right, #1e5799 0%,#2989d8 36%,#207cca 80%,#207cca 100%,#7db9e8 100%,#207cca 102%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#207cca',GradientType=1 ); /* IE6-9 */
+        background: transparent;
+        /*background: #1e5799;
+        background: -moz-linear-gradient(left, #1e5799 0%, #2989d8 36%, #207cca 80%, #207cca 100%, #7db9e8 100%, #207cca 102%);
+        background: -webkit-linear-gradient(left, #1e5799 0%,#2989d8 36%,#207cca 80%,#207cca 100%,#7db9e8 100%,#207cca 102%);
+        background: linear-gradient(to right, #1e5799 0%,#2989d8 36%,#207cca 80%,#207cca 100%,#7db9e8 100%,#207cca 102%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#207cca',GradientType=1 );*/
         width:100vw;
       }
       body{
@@ -24,7 +25,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-
+        margin: 0;
       }
       .title{
         font-family: "Robo Slab", helvetica;
@@ -42,8 +43,8 @@
       svg {
         background: transparent;
         /*display: flex;*/
-        padding-top: 60px;
-        border-top: 4px solid black;
+        /*padding-top: 60px;*/
+        /*border-top: 4px solid black;*/
       }
       .country {
         fill: #d3d3d3;
@@ -66,7 +67,7 @@
         fill-opacity:0.3;
       }
       .countrydetails{
-       white-space: nowrap; 
+       white-space: nowrap;
         margin-top: 10px;
         display: flex;
         justify-content: left;
@@ -104,7 +105,7 @@
     </style>
   </head>
   <body>
-    <h1 class="title">Flight Viz</h1>
+    <img src="images/Flight-Viz.png" class="title"></img>
     <div id="map"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js" charset="utf-8"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
