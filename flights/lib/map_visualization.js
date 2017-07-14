@@ -5,7 +5,7 @@
     width = 2000 - margin.left - margin.right;
 
   var zoom = d3.zoom()
-    .scaleExtent([0.5, 8])
+    .scaleExtent([0.1, 8])
     .on("zoom", zoomed);
 
   let svg = d3.select("#map")
@@ -14,16 +14,22 @@
               .attr("width", width + margin.left + margin.right)
 
 
+  let rectSVG = svg.append("pattern")
+                    .attr("class", "rect-svg")
+                    .attr("height", height + margin.top + margin.down)
+                    .attr("width", width + margin.left + margin.right)
+
 
   let gMap = svg.append("g")
                 .attr("class", "g-map")
                 .attr("transform", "translate("+ margin.left + "," + margin.top +")")
 
-  let rectBackground = gMap.append("rect")
-                .attr("class", "rect-background")
+  let rectGMap = gMap.append("rect")
+                .attr("class", "rect-g-map")
                 .attr("height", 1250)
                 .attr("width", width + margin.left + margin.right)
                 .attr("transform", "translate("+ margin.left + "," + -400 +")")
+
 
   let rectZoom = svg.append("rect")
                 .attr("class", "rect-zoom")
@@ -68,19 +74,19 @@
           .attr("class", "activeCountry")
           .attr("fill", "black");
 
-          d3.select(this.parentNode.parentNode.parentNode.parentNode)
+          d3.select(".map")
           .append("text")
           .attr("class", "countrydetails")
           .text(
             "Country: " + d.properties.NAME
           )
-          d3.select(this.parentNode.parentNode.parentNode.parentNode)
+          d3.select(".map")
           .append("text")
           .attr("class", "countrydetails")
           .text(
             "Continent: " + d.properties.CONTINENT
           )
-          d3.select(this.parentNode.parentNode.parentNode.parentNode)
+          d3.select(".map")
           .append("text")
           .attr("class", "countrydetails")
           .text(
@@ -122,11 +128,12 @@
 
       function transition(plane, route) {
         let l = route.node().getTotalLength();
-        plane.transition()
-              .duration(1000)
+        plane.attr('opacity', 1)
+              .transition()
+              .duration(10*route.node().getTotalLength())
               .attrTween("transform", translateAttr(route.node()))
-        .attr("d", path)
-        .remove()
+              .attr("d", path)
+              .remove()
         ;
       }
 
@@ -135,7 +142,9 @@
         return function(d, i, a) {
           return function(t) {
             var p = path.getPointAtLength(t * l);
-            return "translate(" + (p.x) + "," + (p.y) + ")";
+            var po = path.getPointAtLength(0);
+            debugger
+            return "translate(" + (p.x-po.x) + "," + (p.y-po.y) + ")";
           };
         };
       }
@@ -171,13 +180,12 @@
 
         for (var i = 0; i < flights.length-1; i++) {
           // let currFlight = {coordinates: flights[i]["coordinates"]}
-          let currFlight = flights[i]
-          // debugger
-          // debugger
+          let currFlight = Object.assign({}, flights[i])
+          // delete currFlight["DESTCOORD"]
           if (parseInt(flights[i].DEP_TIME) === timer) {
             transition(
               gMap.datum(currFlight)
-                  .append("circle")
+                  .append("path")
                   .attr("class", "plane")
                   .attr("fill", "red")
                   .attr("d", path)
@@ -226,13 +234,13 @@
         .attr("fill", "red")
         .attr("d", path.pointRadius(5));
 
-        d3.select(this.parentNode.parentNode.parentNode.parentNode)
+        d3.select(".map")
         .append("text")
         .attr("class", "countrydetails")
         .text(
           "Airport: " + d.properties.name
         )
-        d3.select(this.parentNode.parentNode.parentNode.parentNode)
+        d3.select(".map")
         .append("text")
         .attr("class", "countrydetails")
         .text(
