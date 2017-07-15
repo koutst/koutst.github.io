@@ -1,5 +1,12 @@
-
 (function(){
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://koutst:AIzaSyCEHgWuIYyTXOzKriLZZgrW8I7DBBZptr8@opensky-network.org/api/states/all", false);
+  xhr.send();
+
+  xmlDocument = xhr.responseXML;
+  console.log(xmlDocument);
+
   var margin = { top: 0, left: 0, right: 0, down: 0},
     height = 750 - margin.top - margin.down,
     width = 2000 - margin.left - margin.right;
@@ -7,6 +14,11 @@
   var zoom = d3.zoom()
     .scaleExtent([0.1, 8])
     .on("zoom", zoomed);
+
+  // var drag = d3.drag()
+  //               .on("start", startDrag)
+  //               .on("drag", dragged)
+  //               .on("end", endDrag)
 
   let svg = d3.select("#map")
               .append("svg")
@@ -23,6 +35,11 @@
   let gMap = svg.append("g")
                 .attr("class", "g-map")
                 .attr("transform", "translate("+ margin.left + "," + margin.top +")")
+  //               .call(drag)
+  //
+  // function startDrag(d){
+  //   d3.select(this).
+  // }
 
   let rectGMap = gMap.append("rect")
                 .attr("class", "rect-g-map")
@@ -31,7 +48,7 @@
                 .attr("transform", "translate("+ margin.left + "," + -400 +")")
 
 
-  let rectZoom = svg.append("rect")
+  let rectZoom = gMap.append("rect")
                 .attr("class", "rect-zoom")
                 .attr("height", height + margin.top + margin.down)
                 .attr("width", width + margin.left + margin.right)
@@ -40,6 +57,7 @@
                 .call(zoom)
 
     function zoomed() {
+      // debugger
       gMap.attr("transform", d3.event.transform );
     }
 
@@ -49,7 +67,7 @@
       .defer(d3.csv, "flights.csv")
       .await(ready);
 
-    var projection = d3.geoMercator()
+    var projection = d3.geoOrthographic()
       .translate([ width / 2, height / 2 ])
       .scale(250);
 
@@ -69,6 +87,8 @@
         .append("path")
         .attr("class", "country")
         .attr("d", path)
+        .style("pointer-events", "all")
+        .call(zoom)
         .on("mouseover", function(d){
           d3.select(this)
           .attr("class", "activeCountry")
@@ -97,7 +117,8 @@
           d3.selectAll("text.countrydetails").remove()
           d3.selectAll(".activeCountry")
           .attr("class", "country")
-        });
+        })
+
 
 
 
@@ -143,7 +164,6 @@
           return function(t) {
             var p = path.getPointAtLength(t * l);
             var po = path.getPointAtLength(0);
-            debugger
             return "translate(" + (p.x-po.x) + "," + (p.y-po.y) + ")";
           };
         };
