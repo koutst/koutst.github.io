@@ -1,8 +1,21 @@
+// document.write(require("./geo_math.js"))
+// module.exports = "shite"
+
 (function(){
 
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://koutst:AIzaSyCEHgWuIYyTXOzKriLZZgrW8I7DBBZptr8@opensky-network.org/api/states/all", false);
-  xhr.send();
+  const url = "https://koutst:AIzaSyCEHgWuIYyTXOzKriLZZgrW8I7DBBZptr8@opensky-network.org/api/states/all"
+  // xhr.open("GET", url, false);
+  // xhr.send();
+
+  fetch(url)
+  .then(function(data) {
+    debugger
+    return null
+    })
+  .catch(function(error) {
+    // If there is any error you will catch them here
+  });
 
   xmlDocument = xhr.responseXML;
   console.log(xmlDocument);
@@ -12,7 +25,7 @@
     width = 2000 - margin.left - margin.right;
 
   var zoom = d3.zoom()
-    .scaleExtent([0.1, 8])
+    .scaleExtent([1, 8])
     .on("zoom", zoomed);
 
   // var drag = d3.drag()
@@ -47,17 +60,29 @@
                 .attr("width", width + margin.left + margin.right)
                 .attr("transform", "translate("+ margin.left + "," + -400 +")")
 
+  let projection = d3.geoOrthographic()
+                .translate([ width / 2, height / 2 ])
+                .rotate([100, 350, 7])
+                .scale(250);
 
-  let rectZoom = gMap.append("rect")
+  let rectZoom = svg.append("rect")
+                .data([projection])
                 .attr("class", "rect-zoom")
                 .attr("height", height + margin.top + margin.down)
                 .attr("width", width + margin.left + margin.right)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .call(zoom)
+                  .on("mousedown.zoom", function(d){
+                    // debugger
+                    // d.rotate([50, 0, 0])
+                  })
+                  .on("touchstart.zoom", null)
+                  .on("touchmove.zoom", null)
+                  .on("touchend.zoom", null);
+
 
     function zoomed() {
-      // debugger
       gMap.attr("transform", d3.event.transform );
     }
 
@@ -67,9 +92,9 @@
       .defer(d3.csv, "flights.csv")
       .await(ready);
 
-    var projection = d3.geoOrthographic()
-      .translate([ width / 2, height / 2 ])
-      .scale(250);
+
+
+
 
     var path = d3.geoPath()
       .projection(projection);
@@ -87,8 +112,6 @@
         .append("path")
         .attr("class", "country")
         .attr("d", path)
-        .style("pointer-events", "all")
-        .call(zoom)
         .on("mouseover", function(d){
           d3.select(this)
           .attr("class", "activeCountry")
@@ -117,8 +140,7 @@
           d3.selectAll("text.countrydetails").remove()
           d3.selectAll(".activeCountry")
           .attr("class", "country")
-        })
-
+        });
 
 
 
