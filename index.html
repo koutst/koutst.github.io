@@ -20,28 +20,37 @@
 				flex-direction: column;
 			}
 			div#intro {
-				max-width: 750px;
-				padding: 50px;
+				max-width: 725px;
+				padding: 25px;
 			}
 			div#skillz {
-				max-width: 750px;
-				padding: 50px;
+				max-width: 725px;
+				padding: 25px;
 			}
 			div#skillz {
-				max-width: 750px;
-				padding: 50px;
+				max-width: 725px;
+				padding: 25px;
+			}
+			div#jobs {
+				max-width: 725px;
+				padding: 25px;
 			}
 			div.job {
-				max-width: 750px;
-				padding: 50px;
+				margin-bottom: 10px;
+			}
+			div.section-body {
+				padding-top: 10px;
+			}
+			div.section-header {
+				font-weight: bold;
 			}
 			div#education {
-				max-width: 750px;
-				padding: 50px;
+				max-width: 725px;
+				padding: 25px;
 			}
 			div#contact {
-				max-width: 750px;
-				padding: 50px;
+				max-width: 725px;
+				padding: 25px;
 			}
 		</style>
 	</head>
@@ -52,29 +61,52 @@
 				I'm Taki and I develop software. I am currently working on payments at Sotheby's. 
 				I previously worked on providing our customer's with instant shipping quotes.
 			</div>
-			<div id="job-1" class="job">
-				<div id="job-1-header" class="job-header">Sotheby's</div>
-				<div id="job-1-date" class="job-date">Nov 2020 - Present</div>
-				<div id="job-1-details" class="job-details">
-					<li>Replaced Adyen with Stripe as our payment service provider in our Marketplace checkout.</li>
-					<li>Implemented an event based architecture for capturing payments and informing other services of payment status.</li>
-					<li>Built a shipping service which integrates with multiple logistics providers to provide our customers with instant quotes. 
-						This reduced the average time to checkout in our auction service for shipped goods by 50%.
-					</li>
-					<li>Created a fulfillment service for automatically booking shipments once properties are released.</li>
+			<div id="jobs">
+				<div id="jobs-header" class="section-header">Experience</div>
+				<div class="section-body">
+					<div id="job-1" class="job">
+						<div id="job-1-header" class="job-header">Sotheby's</div>
+						<div id="job-1-date" class="job-date">Nov 2020 - Present</div>
+						<div id="job-1-details" class="job-details">
+							<li>Replaced Adyen with Stripe as our payment service provider in our Marketplace checkout.</li>
+							<li>Implemented an event based architecture for capturing payments and informing other services of payment status.</li>
+							<li>Built a shipping service which integrates with multiple logistics providers to provide our customers with instant quotes. 
+								This reduced the average time to checkout in our auction service for shipped goods by 50%.
+							</li>
+							<li>Created a fulfillment service for automatically booking shipments once properties are released.</li>
+						</div>
+					</div>
+					<div id="job-2" class="job">
+						<div id="job-2-header" class="job-header">Adaptly (acquired by Accenture)</div>
+						<div id="job-2-date" class="job-date">Oct 2017 - Nov 2020</div>
+						<div id="job-2-details" class="job-details">
+							<li>Built a robust ad scheduling system across 4 social media APIs, written in Clojure. The goal was to consolidate our user's efforts in ad deployment, the result was reduced deployment frequency by 80%.</li>
+							<li>Extended notification system to notify users when campaigns overspend, across all our social media APIs.</li>
+							<li>Constructed a reliable, user-friendly batched notification system for ad scheduling.</li>
+							<li>Optimized our ad campaign management table. Led to an average of 50% decrease in load times.</li>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="education">
-				<div id="college-name">University of North Carolina</div>
-				<div id="college-location">Chapel Hill, NC</div>
-				<div id="college-degree">Bachelor of Science, Mathematics</div>
+				<div id="education-header" class="section-header">Education</div>
+				<div class="section-body">
+					<div id="college-name">University of North Carolina</div>
+					<div id="college-location">Chapel Hill, NC</div>
+					<div id="college-degree">Bachelor of Science, Mathematics</div>
+				</div>
 			</div>
 			<div id="skillz">
-				<div id="skillz-header">Skills:</div>
-				<div id="skillz-details">Golang, Postgres, Javascript, Clojure, React</div>
+				<div id="skillz-header" class="section-header">Skills</div>
+				<div class="section-body">
+					<div id="skillz-details">Golang, Postgres, Javascript, Clojure, React</div>
+				</div>
 			</div>
 			<div id="contact">
-				<div id="email">Email: koutst@gmail.com</div>
+				<div id="contact-header" class="section-header">Contact</div>
+				<div class="section-body">
+					<div id="email">Email: koutst@gmail.com</div>
+				</div>
 			</div>
 		</div>
 	</body>
