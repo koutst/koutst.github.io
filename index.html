@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Story by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Taki's Portfolio</title>
@@ -16,205 +11,60 @@
 
      gtag('config', 'UA-103016421-1');
     </script>
-		<link rel="shortcut icon" href="images/favicon.ico" />
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="mfizz/font-mfizz.css">
 		<style>
-			.image{
-				background: white !important;
-				display: flex !important;
-				justify-content: center !important;
-				align-items: center !important;
+			body {
+				font-family: 'Courier New', monospace;
 			}
-			.prof-pic{
-				position:relative !important;
-				border-radius: 50% !important;
-				max-width: 50vh !important;
-				width: auto !important;
-				height: auto !important;
-				margin-left: 20px;
-				margin-right: 20px;
+			div#wrapper {
+				display: flex;
+				flex-direction: column;
 			}
-			.content{
-				margin-top: 0;
+			div#intro {
+				width: 500px;
+				padding: 50px;
+			}
+			div#skillz {
+				width: 500px;
+				padding: 50px;
+			}
+			div#skillz {
+				width: 500px;
+				padding: 50px;
+			}
+			div.job {
+				width: 500px;
+				padding: 50px;
 			}
 		</style>
 	</head>
 	<body>
 
 		<!-- Wrapper -->
-			<div id="wrapper" class="divided">
-
-				<!-- One -->
-					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
-						<div class="content">
-							<h1>Taki Koutsomitis</h1>
-							<p class="major">I am a web developer based in NYC with a degree in Mathematics. I have experience working with JavaScript, Clojure, React, PostgreSQL, Ruby on Rails, and D3.js. I aim to build efficient, user friendly applications. I have a strong interest in data visualization. When not programming, I enjoy spending time outdoors. I hope you enjoy my work.</p>
-							<ul class="actions vertical">
-								<li><a href="files/taki_koutsomitis.pdf" class="button big wide smooth-scroll-middle" target="_blank">Resume</a></li>
-							</ul>
-						</div>
-						<div class="image">
-							<img src="images/index.png" alt="" class="prof-pic"/>
-						</div>
-					</section>
-<!--
-				Two
-					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
-						<div class="content">
-							<h2>Quill</h2>
-							<p>Quill is a single-page note taking app built in Ruby on Rails, PostgreSQL, and ReactJS with Redux. The application is inspired by Evernote.</p>
-								<a href="http://notequill.com" target="_blank" class="button">Take Notes</a>
-								<a href="https://github.com/koutst/quill" target="_blank" class="button">Github</a>
-						</div>
-						<div class="image">
-							<img src="images/quill.png" alt="" />
-						</div>
-					</section>
--->
-
-				<!-- Three 
-					<section class="spotlight style1 orient-left content-align-left image-position-center onscroll-image-fade-in">
-						<div class="content">
-							<h2>Flight Traffic</h2>
-							<p>Flight Traffic is a flight mapping application built in D3.js. The map was built using TopoJSON, an extension of GeoJSON, using coordinates in order to build each individual country. Major airports are rendered on top of that map. Flights are rendered on top of that. Because of the enormous number of daily flights around the world, Flight Traffic maps domestic flights in the US for January 1st 2017</p>
-								<a href="http://taki.nyc/flight-visualization" class="button">Try it out</a>
-								<a href="https://github.com/koutst/flight-visualization" class="button">Github</a>
-
-						</div>
-						<div class="image">
-							<img src="images/maple.png" alt="" />
-						</div>
-					</section>
--->
-				<!-- Four 
-					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in">
-						<div class="content">
-							<h2>Oak Ridges Moraine</h2>
-							<p>Oak Ridges Moraine is a basic Object-Relational Mapping library for Ruby. Oak Ridges Moraine allows the user to easily perform database queries.</p>
-								<a href="https://github.com/koutst/oak-ridges-moraine" target="_blank" class="button">Github</a>
-						</div>
-						<div class="image">
-							<img src="images/oak-ridge.png" alt="" />
-						</div>
-					</section>
--->
-				<!-- Six -->
-					<section class="wrapper style1 align-center">
-						<div class="inner">
-							<h2>Skills</h2>
-							<p></p>
-							<div class="items style1 medium onscroll-fade-in">
-								<section>
-									<span class="icon-git fa-3x"></span>
-									<h3>Git</h3>
-								</section>
-								<section>
-									<span class="icon-javascript fa-3x"></span>
-									<h3>JavaScript</h3>
-								</section>
-								<section>
-									  <span class="icon-clojure fa-3x"></span>
-									  <h3>Clojure</h3>
-								</section>
-								<section>
-									<span class="icon-ruby fa-3x"></span>
-									<h3>Ruby</h3>
-								</section>
-								<section>
-									<span class="icon-ruby-on-rails-alt fa-3x"></span>
-									<h3>Rails</h3>
-
-								</section>
-								<section>
-									<span class="icon-html5 fa-3x"></span>
-									<h3>HTML</h3>
-
-								</section>
-								<section>
-									<span class="icon-d3 fa-3x"></span>
-									<h3>D3.js</h3>
-								</section>
-								<section>
-									<span class="icon-css3 fa-3x"></span>
-									<h3>CSS</h3>
-								</section>
-								<section>
-									<span class="icon-postgres fa-3x"></span>
-									<h3>PostgreSQL</h3>
-								</section>
-								<section>
-									<span class="icon-reactjs fa-3x"con style2 major fa-hashtag""></span>
-									<h3>ReactJS</h3>
-								</section>
-								<section>
-									<span class="icon-heroku fa-3x"></span>
-									<h3>Heroku</h3>
-								</section>
-								<section>
-									<span class="icon-jquery fa-3x"></span>
-									<h3>jQuery</h3>
-								</section>
-								<!-- <section>
-									<span class="icon style2 major fa-leaf"></span>
-									<h3>Risus</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.</p>
-								</section> -->
-							</div>
-						</div>
-					</section>
-
-				<!-- Seven -->
-					<!-- <section class="wrapper style1 align-center">
-						<div class="inner medium">
-							<h2>Get in touch</h2>
-							<form method="post" action="#">
-								<div class="field half first">
-									<label for="name">Name</label>
-									<input type="text" name="name" id="name" value="" />
-								</div>
-								<div class="field half">
-									<label for="email">Email</label>
-									<input type="email" name="email" id="email" value="" />
-								</div>
-								<div class="field">
-									<label for="message">Message</label>
-									<textarea name="message" id="message" rows="6"></textarea>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" name="submit" id="submit" value="Send Message" /></li>
-								</ul>
-							</form>
-
-						</div>
-					</section> -->
-
-				<!-- Footer -->
-					<footer class="wrapper style1 align-center">
-						<div class="inner">
-							<ul class="icons">
-								<li><a href="https://github.com/koutst" target="_blank" class="icon style2 fa-github"><span class="label">Github</span></a></li>
-
-								<li><a href="https://linkedin.com/in/taki-k" target="_blank" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
-
-								<li><a href="https://angel.co/taki-koutsomitis" target="_blank" class="icon style2 fa-angellist"><span class="label">Angel List</span></a></li>
-
-								<li><a href="mailto:koutst@protonmail.com" target="_blank" class="icon style2 fa-envelope"><span class="label">Email</span></a></li>
-							</ul>
-						</div>
-					</footer>
-
+		<div id="wrapper">
+			<div id="intro">
+				Hi,<br>
+				I'm Taki and I develop software. I am currently working on payments at Sotheby's. 
+				I previously worked on providing our customer's with instant shipping quotes.
 			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
+			<div id="job-1" class="job">
+				<div id="job-1-header" class="job-header">Sotheby's</div>
+				<div id="job-1-date" class="job-date">Nov 2020 - Present</div>
+				<div id="job-1-details" class="job-details">
+					<li>Replaced Adyen with Stripe as our payment service provider in our Marketplace checkout.</li>
+					<li>Implemented an event based architecture for capturing payments and informing other services of payment status.</li>
+					<li>Built a shipping service which integrates with multiple logistics providers to provide our customers with instant quotes. 
+						This reduced the average time to checkout in our auction service for shipped goods by 50%.
+					</li>
+					<li>Created a fulfillment service for automatically booking shipments once properties are released.</li>
+				</div>
+			</div>
+			<div id="education">
+				
+			</div>
+			<div id="skillz">
+				<div id="skillz-header">Skills:</div>
+				<div id="skillz-details">Golang, Postgres, Javascript, Clojure, React</div>
+			</div>
+		</div>
 	</body>
 </html>
